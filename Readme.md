@@ -28,11 +28,11 @@ Install extensions:
 
 ### 5. Cmake 3.16
 
-# Windows:
+Windows:
 - download .msi file from [link](https://github.com/Kitware/CMake/releases/tag/v3.16.8)
 - install and add CMake to the PATH
 
-# Linux
+Linux
 - install latest version with command:
 ```
 sudo apt-get install cmake
@@ -46,6 +46,7 @@ cd CMake/
 git checkout v3.16.0
 ./bootstrap && make && sudo make install
 ```
+- On Linux change CMake build directory
 
 ### 6. wxWidgets 3.15
 
