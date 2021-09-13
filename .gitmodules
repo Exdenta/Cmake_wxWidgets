@@ -1,0 +1,6 @@
+[submodule "3rdparty/CMake"]
+	path = 3rdparty/CMake
+	url = https://github.com/Kitware/CMake.git
+[submodule "3rdparty/wxWidgets"]
+	path = 3rdparty/wxWidgets
+	url = https://github.com/wxWidgets/wxWidgets.git
