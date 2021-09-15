@@ -13,6 +13,10 @@
 
 [Setup guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
+sudo apt install build-essential
+sudo apt install libgtk-3-dev
+
+
 ### 3. VS Code
 
 [Install VS Code](https://code.visualstudio.com/) for Windows and WSL
@@ -39,8 +43,8 @@ sudo apt-get install cmake
 ```
 OR install from the source:
 ```
-mkdir ~/Libs
-cd ~/Libs
+mkdir ~/libs
+cd ~/libs
 git clone https://github.com/Kitware/CMake.git
 cd CMake/
 git checkout v3.16.0
@@ -50,28 +54,30 @@ git checkout v3.16.0
 
 ### 6. wxWidgets 3.15
 
-- Download wxWidgets into your 3rdparty folder
-
+- Download wxWidgets
 ```
-cd ../..
-git submodule add https://github.com/wxWidgets/wxWidgets.git  3rdparty/wxWidgets
-cd .\3rdparty\wxWidgets
+mkdir ~/libs
+cd ~/libs
+git clone https://github.com/wxWidgets/wxWidgets.git
+cd wxWidgets
 git checkout v3.1.5
 git submodule update --init
 ```
-
-- Add line to the CMakeLists.txt
+- Build wxWidgets shared library
 ```
-add_subdirectory(3rdparty)
+mkdir gtk_build
+cd gtk_build
+../configure --enable-debug
+make -j4
+sudo make install
 ```
-- And create CMakeLists.txt in 3rdparty folder with following content:
+- Open /etc/enviroment, i.e. with:
 ```
-cmake_minimum_required(VERSION 3.15)
-set(wxBUILD_SHARED FALSE)
-add_subdirectory(wxWidgets)
-add_library(3rdparty::wx::net ALIAS net)
-add_library(3rdparty::wx::base ALIAS base)
-add_library(3rdparty::wx::core ALIAS core)
+sudo gedit /etc/environment
+```
+- Add path to library binaries to PATH in /etc/enviroment:
+```
+PATH="/home/alexa/libs/wxWidgets/gtk_build/lib"
 ```
 
 ### 7. Add new project
