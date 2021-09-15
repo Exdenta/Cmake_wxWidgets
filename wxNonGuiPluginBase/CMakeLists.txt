@@ -27,13 +27,17 @@ link_directories(${LINK_DIRECTORIES})
 # Setup the project name and assign the source files for this project
 add_library(${LIBRARY_NAME} SHARED ${SRCS})
 
+
 #Setup the output folder
-set(DLL_DIR bin)
+if(WIN32)
+	set(DLL_DIR Win/bin)
+elseif (LINUX)
+	set(DLL_DIR Linux/bin)
+else()
+	set(DLL_DIR bin)
+endif(WIN32)
+
 set(TARGET_LOCATION ${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX})
-# if(LINUX OR APPLE)
-# 	get_target_property(RESULT_FULL_PATH ${LIBRARY_NAME} LOCATION)
-# 	get_filename_component(RESULT_FILE_NAME ${RESULT_FULL_PATH} NAME)
-# endif(LINUX OR APPLE)
 set_target_properties(${LIBRARY_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TARGET_LOCATION})
 
 # Set additional dependencies

@@ -35,19 +35,17 @@ link_directories(${LINK_DIRECTORIES})
 
 add_library(${LIBRARY_NAME} SHARED ${SRCS})
 
-set(DLL_DIR bin)
-if(APPLE)
-	set(BUNDLE_SUBFOLDER 
-		"/$(CONFIGURATION)/${PROJECT_NAME}.app/Contents/PlugIns")
-endif(APPLE)
 if(WIN32)
-        set(TARGET_LOCATION
+	set(DLL_DIR Win/bin)
+    set(TARGET_LOCATION
                 ${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX}/${CMAKE_CFG_INTDIR}/plugins/gui)
 elseif (LINUX)
-        set(TARGET_LOCATION
+	set(DLL_DIR Linux/bin)
+    set(TARGET_LOCATION
                 ${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX}${BUNDLE_SUBFOLDER}/plugins/gui)
 else()
-        set(TARGET_LOCATION
+	set(DLL_DIR bin)
+    set(TARGET_LOCATION
                 ${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX}${BUNDLE_SUBFOLDER}/gui)
 endif(WIN32)
 # if(LINUX OR APPLE)

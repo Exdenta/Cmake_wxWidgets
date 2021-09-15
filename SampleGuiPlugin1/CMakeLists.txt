@@ -35,26 +35,19 @@ link_directories(${LINK_DIRECTORIES})
 
 add_library(${LIBRARY_NAME} SHARED ${SRCS})
 
-set(DLL_DIR bin)
-if(APPLE)
-	set(BUNDLE_SUBFOLDER 
-		"/$(CONFIGURATION)/${PROJECT_NAME}.app/Contents/PlugIns")
-endif(APPLE)
 if(WIN32)
+	set(DLL_DIR Win/bin)
 	set(TARGET_LOCATION 
 		${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX}/${CMAKE_CFG_INTDIR}/plugins/gui)
 elseif (LINUX)
+	set(DLL_DIR Linux/bin)
 	set(TARGET_LOCATION 
 		${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX}${BUNDLE_SUBFOLDER}/plugins/gui)
 else()
+	set(DLL_DIR bin)
 	set(TARGET_LOCATION
                 ${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX}${BUNDLE_SUBFOLDER}/gui)
 endif(WIN32)
-if(LINUX OR APPLE)
-#   https://cmake.org/cmake/help/v3.0/command/get_filename_component.html
-# 	get_target_property(RESULT_FULL_PATH ${LIBRARY_NAME} LOCATION)
-	# get_filename_component(NAME RESULT_FILE_NAME ${RESULT_FULL_PATH} NAME)
-endif(LINUX OR APPLE)
 set_target_properties(${LIBRARY_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TARGET_LOCATION})
 
 target_link_libraries(${LIBRARY_NAME} ${DEMO_LIBS} ${wxWidgets_LIBRARIES})
@@ -66,6 +59,6 @@ target_precompile_headers(${LIBRARY_NAME} PRIVATE ${PROJECT_ROOT_DIR}/include/st
 if(LINUX OR APPLE)
 	add_custom_command(TARGET ${LIBRARY_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E make_directory ${TARGET_LOCATION}
-		COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${LIBRARY_NAME}>  ${TARGET_LOCATION}/$<TARGET_FILE_NAME:${LIBRARY_NAME}>   # ${TARGET_LOCATION}/${RESULT_FILE_NAME}$<TARGET_FILE_PREFIX:${LIBRARY_NAME}>
+		COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${LIBRARY_NAME}>  ${TARGET_LOCATION}/$<TARGET_FILE_NAME:${LIBRARY_NAME}>
 	)
 endif(LINUX OR APPLE)

@@ -23,7 +23,14 @@ link_directories(${LINK_DIRECTORIES})
 
 add_library(${LIBRARY_NAME} STATIC ${SRCS})
 
-set(DLL_DIR bin)
+#Setup the output folder
+if(WIN32)
+	set(DLL_DIR Win/bin)
+elseif (LINUX)
+	set(DLL_DIR Linux/bin)
+else()
+	set(DLL_DIR bin)
+endif(WIN32)
 set(TARGET_LOCATION ${PROJECT_SOURCE_DIR}/${DLL_DIR}/${CMAKE_CFG_INTDIR})
 set_target_properties(${LIBRARY_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TARGET_LOCATION})
 
