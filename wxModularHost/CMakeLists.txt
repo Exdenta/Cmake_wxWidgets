@@ -61,13 +61,7 @@ set(PROJECT_FILES ${SRCS})
 add_executable(${EXECUTABLE_NAME} ${EXECUTABLE_TYPE} ${PROJECT_FILES})
 
 #Setup the output folder
-if(WIN32)
-	set(EXE_DIR Win/bin)
-elseif (LINUX)
-	set(EXE_DIR Linux/bin)
-else()
-	set(EXE_DIR bin)
-endif(WIN32)
+set(EXE_DIR ${OS_BASE_NAME}/bin)
 
 set(TARGET_LOCATION ${PROJECT_SOURCE_DIR}/${EXE_DIR}${LIB_SUFFIX})
 set_target_properties(${EXECUTABLE_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TARGET_LOCATION})

@@ -24,10 +24,6 @@ project(${PROJECT_NAME})
 # for them in current folder
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 
-if(APPLE)
-	set(OS_BASE_NAME Mac)
-	set(CMAKE_OSX_SYSROOT "macosx10.8")	
-endif(APPLE)
 if(LINUX)
 	set(OS_BASE_NAME Linux)
 endif(LINUX)

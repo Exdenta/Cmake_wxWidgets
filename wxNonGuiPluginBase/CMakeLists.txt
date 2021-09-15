@@ -29,13 +29,7 @@ add_library(${LIBRARY_NAME} SHARED ${SRCS})
 
 
 #Setup the output folder
-if(WIN32)
-	set(DLL_DIR Win/bin)
-elseif (LINUX)
-	set(DLL_DIR Linux/bin)
-else()
-	set(DLL_DIR bin)
-endif(WIN32)
+set(DLL_DIR ${OS_BASE_NAME}/bin)
 
 set(TARGET_LOCATION ${PROJECT_SOURCE_DIR}/${DLL_DIR}${LIB_SUFFIX})
 set_target_properties(${LIBRARY_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${TARGET_LOCATION})
